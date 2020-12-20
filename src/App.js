@@ -5,10 +5,18 @@ import Category from './Pages/category/Category';
 import Authentication from './Pages/authentication/Authentication';
 import CategoryProducts from './Pages/category-products/CategoryProducts';
 import Checkout from './Pages/checkout/Checkout';
+import {checkAuthStatus} from './Redux/auth/authActions';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
 
 
-function App() {
+function App({checkAuthStatus}) {
+  useEffect(()=>{
+
+  checkAuthStatus()
+
+},[])
   return (
     <div className="App">
      <h1>Ecommerce Website</h1>
@@ -24,4 +32,8 @@ function App() {
   );
 }
 
-export default App;
+var actions = ({
+  checkAuthStatus
+})
+
+export default connect(null, actions)(App);
