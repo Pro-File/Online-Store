@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -20,5 +21,6 @@ import 'firebase/firestore';
   export var serverTime = () => {
     return firebase.firestore.FieldValue.serverTimestamp();
   };
+  export var storage = firebase.storage().ref();
 
   export default firebase;

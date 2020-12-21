@@ -8,6 +8,7 @@ import Checkout from './Pages/checkout/Checkout';
 import {checkAuthStatus} from './Redux/auth/authActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
+import Test from './Pages/Test/Test';
 
 
 
@@ -26,6 +27,7 @@ function App({checkAuthStatus}) {
        <Route path="/categories" component = {Category}/>
        <Route path="/category-products" component = {CategoryProducts}/>
        <Route path="/checkout" component = {Checkout}/>
+       <Route path="/test" component = {Test}/>
 
      </Switch>
     </div>
