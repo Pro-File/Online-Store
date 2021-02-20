@@ -21,6 +21,7 @@ const Test = ({addProduct}) => {
       photo,
     };
     addProduct(productObj);
+    // console.log(productObj);
   };
   return (
     <div>

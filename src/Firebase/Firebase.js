@@ -17,8 +17,8 @@ import 'firebase/storage';
 
   export var auth = firebase.auth();
   export var firestore = firebase.firestore();
-  export var GoogleAuthProvider = new firebase.auth.GoogleAuthProvider(); 
-  export var serverTime = () => {
+  export var googleAuthProvider = new firebase.auth.GoogleAuthProvider(); 
+  export var serverTimestamp = () => {
     return firebase.firestore.FieldValue.serverTimestamp();
   };
   export var storage = firebase.storage().ref();

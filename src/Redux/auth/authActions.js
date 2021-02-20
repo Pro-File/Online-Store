@@ -1,136 +1,114 @@
-import {auth, firestore, GoogleAuthProvider, serverTime} from './../../Firebase/Firebase';
-import { REMOVE_USER, SET_USER } from './AuthConstants';
-import firebase from './../../Firebase/Firebase';
-
+import {
+  auth,
+  firestore,
+  serverTimestamp,
+  googleAuthProvider,
+} from "./../../Firebase/Firebase";
+import { REMOVE_USER, SET_USER } from "./AuthConstants";
+import firebase from "./../../Firebase/Firebase";
+// import history from "../../history/history"
 
 export var setUser = (user) => ({
-    type: SET_USER,
-    payload: {
-        user,
-    },
+  type: SET_USER,
+  payload: {
+    user,
+  },
 });
+
 export var removeUser = () => ({
-    type: REMOVE_USER
-})
-export var signup = ({fullName,email,password}) => async(dispatch) => {
-    try {
-        // Step 1: Create user on Auth Section
-        var {user: {uid}} = await auth.createUserWithEmailAndPassword(email, password);
+  type: REMOVE_USER,
+});
 
-        // Step: 2 Save user's data to Firebase FireStore(DB)
-        var userInfo = {
-            uid,
-            fullName,
-            email,
-            createdAt: serverTime()
-        }
-        await firestore.collection("users").doc(uid).set(userInfo);
-        // console.log(userInfo);
+export var signup = ({ email, password, fullName }) => async (dispatch) => {
+  try {
+    //create user on firebase auth section
+    var { user: { uid } } = await auth.createUserWithEmailAndPassword(email, password);
 
-        // Step : 3 Setting User in the State
-        // dispatch({
-        //     type: SET_USER,
-        //     payload:{
-        //         user: userInfo,
-        //     }
-        // })
+    //save user data to firestore
+    var userInfo = {
+      fullName,
+      email,
+      createdAt: serverTimestamp(),
+    };
+    console.log(userInfo);
 
-    } catch (error) {
-        console.log(error);
+    await firestore.collection("users").doc(uid).set(userInfo);
+
+    //navigate to hom page
+    // history.push("/")
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export var signin = ({ email, password }) => async (dispatch) => {
+  try {
+    //signin user with auth
+    await auth.signInWithEmailAndPassword(email, password);
+
+    //navigate to hom page
+    // history.push("/")
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export var signout = () => async (dispatch) => {
+  try {
+    //signout user from firebase auth
+    await auth.signOut();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export var googleSignin = () => async (dispatch) => {
+  try {
+    //signin user in firebase auth (google)
+    var {
+      user: { displayName, email, uid },
+      additionalUserInfo: { isNewUser },
+    } = await auth.signInWithPopup(googleAuthProvider);
+    if (isNewUser) {
+      //if new user -> add ingo to fire store
+      var userInfo = {
+        fullName: displayName,
+        email,
+        createdAt: serverTimestamp(),
+      };
+      await firestore.collection("users").doc(uid).set(userInfo);
     }
-}
-
-export var signin = ({email, password}) => async(dispatch) => {
-    try {
-        // Sign in User with Auth
-        var {user : {uid}} = await auth.signInWithEmailAndPassword(email,password);
-        // Fetch User Data from FireStore(DB)
-        // var UserData = await firestore.collection("users").doc(uid).get();
-        // var {fullName, email: UserEmail} = UserData.data();
-        // var userInfo = {
-        //     uid,
-        //     fullName,
-        //     email: UserEmail,
-        // }
-        // //Set User Data to State
-        // dispatch({
-        //     type: SET_USER,
-        //     payload:{
-        //         user: userInfo,
-        //     }
-        // })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export var signout = () => async(dispatch) => {
-    try {
-        // Logging Out the User
-        await auth.signOut();
-        // Changing the State
-        //  dispatch({
-        //     type: REMOVE_USER,
-        // })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export var googleSignIn = () => async(dispatch) => {
-    try {
-        var {user : {displayName, email, uid}, additionalUserInfo: {isNewUser}} = await auth.signInWithPopup(GoogleAuthProvider);
-
-        if(isNewUser){
-        var userInfo = {
-            uid,
-            fullName: displayName,
-            email,
-            createdAt: serverTime()
-        }
-        var userData = await firestore.collection("users").doc(uid).set(userInfo);
-    }
-
-        // var userInfo = {
-        //     uid,
-        //     fullName: displayName,
-        //     email,
-        //     createdAt: serverTime()
-        // }
-        // dispatch({
-        //     type: SET_USER,
-        //     payload:{
-        //         user: userInfo,
-        //     }
-        // })
-    } catch (error) {
-        console.log(error);
-    }
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
-export var checkAuthStatus = () => async(dispatch) => {
-    try {
-        firebase.auth().onAuthStateChanged( async function(user){
-            if(user){
-        var {uid} = user;
-        // Fetch User Data from FireStore(DB)
-        var UserData = await firestore.collection("users").doc(uid).get();
-        var {fullName, email: UserEmail} = UserData.data();
-        var userDataforState = {
-            uid,
-            fullName,
-            email: UserEmail,
-        }
-        //Set User Data to State
-        dispatch(setUser(userDataforState))
-
-            }
-            else{
-                dispatch(removeUser())
-            }
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
+//app auth state (centralize auth manager for our app)
+export var checkAuthStatus = () => async (dispatch) => {
+  try {
+    //firebase auth listener
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        // User is signed in.
+        var { uid } = user;
+        //fetch user data from firestore
+        var query = await firestore.collection("users").doc(uid).get();
+        var { fullName, email } = query.data();
+        //setting up redux state
+        var userDataForState = {
+          fullName,
+          email,
+          uid,
+        };
+        dispatch(setUser(userDataForState));
+      } else {
+        // No user is signed in.
+        //set auth state to null
+        dispatch(removeUser());
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

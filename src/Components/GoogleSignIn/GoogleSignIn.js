@@ -1,16 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {googleSignIn} from '../../Redux/auth/authActions';
+import {googleSignin} from '../../Redux/auth/authActions';
 
 
-const GoogleSignIn = ({googleSignIn}) => {
+const GoogleSignIn = ({googleSignin}) => {
     return (
         <div>
-            <button onClick={googleSignIn}>Sign In with Google</button>
+            <button onClick={googleSignin}>Sign In with Google</button>
         </div>
     )
 }
 var actions = ({
-    googleSignIn
+    googleSignin
 })
 export default connect(null,actions)(GoogleSignIn)

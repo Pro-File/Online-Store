@@ -15,7 +15,7 @@ import Test from './Pages/Test/Test';
 function App({checkAuthStatus}) {
   useEffect(()=>{
 
-  checkAuthStatus()
+  checkAuthStatus();
 
 },[])
   return (

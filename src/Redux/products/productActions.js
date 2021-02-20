@@ -1,4 +1,4 @@
-import { firestore, serverTime, storage } from "../../Firebase/Firebase";
+import { firestore, serverTimestamp, storage } from "../../Firebase/Firebase";
 import { v4 as uuid } from 'uuid';
 
 export var addProduct = (productObj) => async () => {
@@ -18,7 +18,7 @@ export var addProduct = (productObj) => async () => {
         var downloadURL = await imageRef.getDownloadURL();
         // 2- Modify productObj with photo and createdAt
         productObj.photo = downloadURL;
-        productObj.createdAt = serverTime();
+        productObj.createdAt = serverTimestamp();
         productObj.cost = parseFloat(productObj.cost);
         productObj.quantity = parseInt(productObj.quantity);
         // 3- create doc in the firestore Products  
