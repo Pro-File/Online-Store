@@ -9,6 +9,7 @@ import {checkAuthStatus} from './Redux/auth/authActions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import Test from './Pages/Test/Test';
+import NavBar from './Components/NavBar/NavBar';
 
 
 
@@ -20,15 +21,15 @@ function App({checkAuthStatus}) {
 },[])
   return (
     <div className="App">
-     <h1>Ecommerce Website</h1>
+     <NavBar/>
+     
      <Switch>
        <Route path="/" component = {Home} exact/>
        <Route path="/auth" component = {Authentication}/>
        <Route path="/categories" component = {Category}/>
-       <Route path="/category-products" component = {CategoryProducts}/>
+       <Route path="/category-products/:category" component = {CategoryProducts}/>
        <Route path="/checkout" component = {Checkout}/>
        <Route path="/test" component = {Test}/>
-
      </Switch>
     </div>
   );

@@ -1,0 +1,12 @@
+.view-more{
+    padding: 10px 20px;
+    margin: 20px 40px;
+    background: black;
+    color: #ffff;
+    cursor: pointer;
+}
+.view-more:hover{
+    transition: 250ms all ease-in-out;
+    color: black;
+    background: rgb(216, 157, 29);
+}

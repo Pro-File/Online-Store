@@ -1,6 +1,9 @@
 import { firestore, serverTimestamp, storage } from "../../Firebase/Firebase";
 import { v4 as uuid } from 'uuid';
+import { REMOVE_ALL_PRODUCTS, SET_PRODUCTS } from "./productConstants";
+import {categorizeProducts} from './../../Utility/CategorizeProducts';
 
+// Admin Panel 
 export var addProduct = (productObj) => async () => {
   try {
     // 1-  send file to storage and get URL
@@ -30,3 +33,58 @@ export var addProduct = (productObj) => async () => {
     console.log(error);
   }
 };
+
+// Ecommerce App Actions
+// Fetch All Products from Firestore
+export var fetchProducts = () => async(dispatch) => {
+    try {
+      var products = [];
+      var query = await firestore.collection("products").get();
+      query.docs.forEach((doc)=>{
+        products.push({...doc.data(), id: doc.id});
+      });
+      dispatch({
+        type: SET_PRODUCTS,
+        payload: {
+          products
+        }
+      })
+    // var CategorizedProducts = categorizeProducts(products);
+    // console.log(CategorizedProducts);
+    } catch (error) {
+      console.log(error);
+    }
+}
+// Fetch Category Products
+export var fetchCategoryProducts = (category) => async(dispatch) => {
+    try {
+      var products = [];
+      var query = await firestore.collection("products").where("category","==",category).get();
+      query.docs.forEach((doc)=>{
+        products.push({...doc.data(), id: doc.id});
+      });
+      // console.log(products)
+      dispatch({
+        type: SET_PRODUCTS,
+        payload: {
+          products
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+}
+// Remove All Products
+export var removeAllProducts = () => async(dispatch) =>{
+  try {
+    var products = [];
+    dispatch({
+      type: REMOVE_ALL_PRODUCTS,
+      payload: {
+        products
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
