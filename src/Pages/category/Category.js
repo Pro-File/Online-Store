@@ -7,14 +7,13 @@ import CategoryList from '../../Components/CategoryList/CategoryList';
 const Category = ({fetchProducts, categorizedProducts, removeAllProducts}) => {
     // console.log(categorizedProducts);
     useEffect(() => {
-        console.log("Mount");
+        // console.log("Mount");
        fetchProducts();
        return ()=>{
            removeAllProducts();
-           console.log("UnMount");
+        //    console.log("UnMount");
        }
     },[])
-    var Dependancy = "String";
   
     return(
         <div>

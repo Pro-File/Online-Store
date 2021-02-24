@@ -9,11 +9,11 @@ const CategoryProducts = ({match: {params : {category}}
     , removeAllProducts
 }) => {
     useEffect(() => {
-        console.log("Mount");
+        // console.log("Mount");
         fetchCategoryProducts(category); 
         return ()=>{
             removeAllProducts();
-            console.log("UnMount");
+            // console.log("UnMount");
         }
     },[])
     return (

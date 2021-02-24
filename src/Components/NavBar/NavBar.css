@@ -8,7 +8,7 @@
     height: 10vh;
     /* background: sandybrown; */
     display: grid;
-    grid-template-columns: 70fr 15fr 15fr;
+    grid-template-columns: 70fr 10fr 10fr 10fr;
 }
 .navBar h2,.navBar h3{
     padding: 0 50px;

@@ -1,0 +1,19 @@
+.add,.remove{
+    padding: 10px 20px;
+    margin: 5px 5px;
+    background: black;
+    color: #ffff;
+    cursor: pointer;
+}
+.cancel{
+    padding: 5px 10px;
+    margin: 5px 5px;
+    background: red;
+    color: #ffff;
+    cursor: pointer;
+}
+.add:hover,.remove:hover{
+    transition: 250ms all ease-in-out;
+    color: black;
+    background: rgb(216, 157, 29);
+}

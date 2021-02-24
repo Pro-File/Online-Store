@@ -16,6 +16,9 @@ const NavBar = () => {
 
             <div><Link to="/auth"><h3>Auth</h3></Link>
             </div>
+
+            <div><Link to="/cart"><h3>Cart</h3></Link>
+            </div>
            
         </div>
     ) 

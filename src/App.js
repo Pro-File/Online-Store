@@ -4,6 +4,7 @@ import Home from './Pages/home/Home';
 import Category from './Pages/category/Category';
 import Authentication from './Pages/authentication/Authentication';
 import CategoryProducts from './Pages/category-products/CategoryProducts';
+import Cart from './Pages/cart/Cart';
 import Checkout from './Pages/checkout/Checkout';
 import {checkAuthStatus} from './Redux/auth/authActions';
 import { connect } from 'react-redux';
@@ -28,6 +29,7 @@ function App({checkAuthStatus}) {
        <Route path="/auth" component = {Authentication}/>
        <Route path="/categories" component = {Category}/>
        <Route path="/category-products/:category" component = {CategoryProducts}/>
+       <Route path="/cart" component={Cart}/>
        <Route path="/checkout" component = {Checkout}/>
        <Route path="/test" component = {Test}/>
      </Switch>
