@@ -88,3 +88,17 @@ export var removeAllProducts = () => async(dispatch) =>{
     console.log(error)
   }
 }
+
+
+// Fetch Specific Product
+export var FetchSpecificProduct = (productId) => async(dispatch) => {
+  try {
+
+    var query = await firestore.collection("products").doc(productId).get();
+    var product = query.data();
+    return product;
+
+  } catch (error) {
+    console.log(error)
+  }
+}

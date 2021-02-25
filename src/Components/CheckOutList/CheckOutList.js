@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
-import CartItem from './CartItem/CartItem'
+import CheckOutItem from './CheckOutItem/CheckOutItem';
 import {fetchProducts, removeAllProducts} from './../../Redux/products/productActions';
 
 
-const CartList = ({fetchProducts,removeAllProducts,cartItems}) => {
+const CheckOutList = ({fetchProducts,removeAllProducts,cartItems}) => {
     useEffect(() => {
-        // console.log(cartItems);
+        console.log(cartItems);
         fetchProducts();
         // console.log("Mount");
        return ()=>{
@@ -17,7 +17,7 @@ const CartList = ({fetchProducts,removeAllProducts,cartItems}) => {
     return(
         <div>
             <h1>Cart List</h1>
-        {cartItems.map((item) => <CartItem key={item.photo} item = {item}/>)}
+        {cartItems.map((item) => <CheckOutItem key={item.photo} item = {item}/>)}
         </div>
     )
 }
@@ -26,8 +26,5 @@ var actions ={
     fetchProducts,
     removeAllProducts,
 }
-var mapState = (state) =>({
-        cartItems :state.cart,
-})
 
-export default connect(mapState,actions)(CartList)
+export default connect(null,actions)(CheckOutList)

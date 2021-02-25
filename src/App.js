@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import Test from './Pages/Test/Test';
 import NavBar from './Components/NavBar/NavBar';
+import Product from './Pages/product/Product';
 
 
 
@@ -29,6 +30,7 @@ function App({checkAuthStatus}) {
        <Route path="/auth" component = {Authentication}/>
        <Route path="/categories" component = {Category}/>
        <Route path="/category-products/:category" component = {CategoryProducts}/>
+       <Route path="/product/:productId" component = {Product}/>
        <Route path="/cart" component={Cart}/>
        <Route path="/checkout" component = {Checkout}/>
        <Route path="/test" component = {Test}/>
