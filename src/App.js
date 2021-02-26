@@ -32,7 +32,7 @@ function App({checkAuthStatus}) {
        <Route path="/category-products/:category" component = {CategoryProducts}/>
        <Route path="/product/:productId" component = {Product}/>
        <Route path="/cart" component={Cart}/>
-       <Route path="/checkout" component = {Checkout}/>
+       <Route path="/checkout/:orderId" component = {Checkout}/>
        <Route path="/test" component = {Test}/>
      </Switch>
     </div>

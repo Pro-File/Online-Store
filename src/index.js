@@ -2,15 +2,16 @@ import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './Redux/store';
+import history from './Components/History/History';
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     
-    <BrowserRouter>
+    <Router history = {history}>
 
 <Provider store={store}>
   
@@ -18,7 +19,7 @@ ReactDOM.render(
 
 </Provider>
   
-    </BrowserRouter>
+    </Router>
   
   </React.StrictMode>,
   document.getElementById('root')

@@ -6,7 +6,7 @@ import {fetchProducts, removeAllProducts} from './../../Redux/products/productAc
 
 const CheckOutList = ({fetchProducts,removeAllProducts,cartItems}) => {
     useEffect(() => {
-        console.log(cartItems);
+        // console.log(cartItems);
         fetchProducts();
         // console.log("Mount");
        return ()=>{
