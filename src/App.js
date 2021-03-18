@@ -20,7 +20,7 @@ function App({checkAuthStatus}) {
 
   checkAuthStatus();
 
-},[])
+},[checkAuthStatus])
   return (
     <div className="App">
      <NavBar/>
