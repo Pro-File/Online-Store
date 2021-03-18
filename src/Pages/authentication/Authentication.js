@@ -7,7 +7,7 @@ import SignUpForm from '../../Components/SignUpForm/SignUpForn'
 const Authentication = () => {
     return (
         <div>
-            <h1>Authentication</h1>
+            <h1>Authentication Page</h1>
             <SignUpForm/>
             <GoogleSignIn/>
             <SigninForm/>
